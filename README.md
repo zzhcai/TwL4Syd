@@ -14,6 +14,6 @@ Return the final results and the time to run the job itself.
 # Run
 ```
 sudo chmod +x setup.sh run.sh
-./setup.sh
+sudo ./setup.sh
 ./run.sh
 ```
