@@ -25,14 +25,14 @@ Return the final results and the time to run the job itself.
 ├──── 2n8c.slurm            # 2 node 8 cores
 ├── .gitattributes
 ├── .gitignore
-├── count.py                # main python script
 ├── LICENSE
-├── mesh.png
 ├── README.md
+├── count.py                # main
+├── utils.py
+├── mesh.png
 ├── requirements.txt
 ├── run.sh                  # application entrypoint
 └── setup.sh                # prerequisite
-
 ```
 
 # Run
