@@ -17,6 +17,7 @@ Return the final results and the time to run the job itself.
 ```
 ├── data
 ├──── bigTwitter.json       # not uploaded
+├──── sydGrid.json
 ├── output                  # output result from SLURM job
 ├────
 ├── scripts

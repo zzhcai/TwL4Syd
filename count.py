@@ -17,13 +17,15 @@ def main():
     rank = comm.Get_rank()
     size = comm.Get_size()
     
-    with open(args.twitter_path, 'r') as fp:
-        for i, line in enumerate(fp):
-            # round-robin job allocation to each process
-            if i % size == rank:
-                c_tweet = ConciseTweet(line)
-                if c_tweet.coord and c_tweet.lang:   # not null
-                    pass
+    with open(args.twitter_path, 'r') as ft:
+        with open(args.grid_path, 'r') as fg:
+            
+            for i, line in enumerate(ft):
+                # round-robin job allocation to each process
+                if i % size == rank:
+                    c_tweet = ConciseTweet(line)
+                    if c_tweet.coord and c_tweet.lang:   # not null
+                        pass
 
 if __name__ == '__main__':
     main()

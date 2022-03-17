@@ -1,3 +1,4 @@
 /data/*.json
-/data/*.out
+!/data/sydGrid.json
+/output/*.out
 __pycache__/*.pyc
