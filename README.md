@@ -18,6 +18,10 @@ Return the final results and the time to run the job itself.
 ├── data
 ├──── bigTwitter.json       # not uploaded
 ├──── sydGrid.json
+├── deprecated              # non-ideal approaches
+├──── intercomm             # spawn dynamic inter-commuincator
+├────── count.py
+├────── pergridcount.py
 ├── output                  # output result from SLURM job
 ├────
 ├── scripts
