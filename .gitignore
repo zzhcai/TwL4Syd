@@ -1,5 +1,2 @@
-/data/*.json
-/data/*.identifier
-!/data/sydGrid.json
-/output/results.txt
+*.json
 __pycache__/*.pyc

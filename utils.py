@@ -148,36 +148,31 @@ def addDictset(d1, d2, datatype):
     return d1
 
 
-def output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt, out_path, show):
+def output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt):
 
-    # write to output
-    with open(out_path, 'w') as fo:
-        fo.write('''===================================================
-
-''')
-        fo.write('Cell\t#Total Tweets\t#Number of Languages Used\n')
-        for cell in ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4',
-                     'C1', 'C2', 'C3', 'C4', 'D1', 'D2', 'D3', 'D4']:
-            fo.write('\n' + cell + '\t')
-            fo.write(str(cell_tweet_cnt[cell]) + '\t\t')
-            fo.write(str(len(cell_lang_cnt[cell])))
-        fo.write('''
-
+    print('''
 ===================================================
-
 ''')
-        fo.write('#Top 10 Languages & #Tweets\n\n')
-        # merge chinese
-        lang_tweet_cnt['zh-cn'] += lang_tweet_cnt['zh-tw']
-        del lang_tweet_cnt['zh-tw']
-        top = Counter({
-            LANG_ATR[l]: c
-            for l, c in lang_tweet_cnt.items() if c > 0 and l in LANG_ATR
-        }).most_common(10)
-        for l, c in top:
-            fo.write(l + '\t' + str(c) + '\n')
+    print('Cell\t#Total Tweets\t#Number of Languages Used\n')
+    for cell in ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4',
+                 'C1', 'C2', 'C3', 'C4', 'D1', 'D2', 'D3', 'D4']:
+        print(cell, '\t', end='')
+        print(cell_tweet_cnt[cell], '\t\t', end='')
+        print(len(cell_lang_cnt[cell]))
+    print('''
+===================================================
+''')
+    print('#Top 10 Languages & #Tweets')
+    # merge chinese
+    lang_tweet_cnt['zh-cn'] += lang_tweet_cnt['zh-tw']
+    del lang_tweet_cnt['zh-tw']
+    top = Counter({
+        LANG_ATR[l]: c
+        for l, c in lang_tweet_cnt.items() if c > 0 and l in LANG_ATR
+    }).most_common(10)
+    for l, c in top:
+        print('\n' + l, '\t', c)
 
-    # print in terminal
-    with open(out_path, 'r') as fo:
-        if show == 'y':
-            print(fo.read())
+    print('''
+===================================================''')
+    return

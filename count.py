@@ -11,22 +11,17 @@ from utils import addDictset, count, output   # utils.py
 parser = \
     argparse.ArgumentParser(description='Twitter Language Geospatial Analysis for Sydney'
                             )
-parser.add_argument('--twitter_path', type=str,
-                    default=r'data/largeTwitter.json',
+parser.add_argument('twitter_path', type=str,
                     help='Path to the twitter data file'
                     )
-parser.add_argument('--out_path', type=str, default=r'output/results.txt',
-                    help='Path to output'
-                    )
-parser.add_argument('--show', type=str, default='y',
-                    help='y to print results in terminal'
+parser.add_argument('grid_path', type=str,
+                    help='Path to the grid shape file'
                     )
 parser.add_argument('--batch_size_per_message', type=int, default=50,
                     help='The number of tweets bared per message'
                     )
 args = parser.parse_args()
 
-GRID_PATH = r'data/sydGrid.json'   # path to the grid shape file
 N_GRID = 16   # number of grids
 
 
@@ -39,7 +34,7 @@ def main():
     cell_lang_cnt = defaultdict(set)
     cell_tweet_cnt, lang_tweet_cnt = Counter(), Counter()
     
-    with open(GRID_PATH, 'r') as fg:
+    with open(args.grid_path, 'r') as fg:
         grids = [(f['geometry']['coordinates'][0])[:4] for f in
                  json.load(fg)['features']]
 
@@ -104,8 +99,7 @@ def main():
 
 
     if rank == 0:
-        output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt,
-               args.out_path, args.show)
+        output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt)
 
 
 if __name__ == '__main__':
