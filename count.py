@@ -3,6 +3,7 @@ import json
 
 from mpi4py import MPI
 from collections import Counter, defaultdict
+
 from utils import addDictset, count, output   # utils.py
 
 # Command-line arguments
@@ -12,9 +13,11 @@ parser = \
                             )
 parser.add_argument('--twitter_path', type=str,
                     default=r'data/largeTwitter.json',
-                    help='Path to the twitter data file')
+                    help='Path to the twitter data file'
+                    )
 parser.add_argument('--out_path', type=str, default=r'out/results.txt',
-                    help='Path to output')
+                    help='Path to output'
+                    )
 parser.add_argument('--batch_size_per_message', type=int, default=50,
                     help='The number of tweets bared per message'
                     )
@@ -40,8 +43,15 @@ def main():
     # MPI not needed
 
     if size == 1:
-
-        pass   # @TODO
+        with open(args.twitter_path, 'r') as ft:
+            (cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt) = \
+                count(
+                    grids,
+                    ft,
+                    cell_lang_cnt,
+                    cell_tweet_cnt,
+                    lang_tweet_cnt
+                    )
 
     # rank-0 task distributor
 
