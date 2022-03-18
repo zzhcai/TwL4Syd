@@ -159,7 +159,7 @@ def output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt, out_path, show):
         for cell in ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4',
                      'C1', 'C2', 'C3', 'C4', 'D1', 'D2', 'D3', 'D4']:
             fo.write('\n' + cell + '\t')
-            fo.write(str(cell_tweet_cnt[cell]) + '\t')
+            fo.write(str(cell_tweet_cnt[cell]) + '\t\t')
             fo.write(str(len(cell_lang_cnt[cell])))
         fo.write('''
 
