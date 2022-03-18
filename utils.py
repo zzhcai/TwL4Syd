@@ -1,19 +1,21 @@
 import json
 
+from copy import deepcopy
+
 
 class ConciseTweet:
 
     """
     Concise tweet information,
     only containing location coordinates, and language code
-    
+
     """
 
     def __init__(self, line):
         """
         :param line: a line in the twitter data file
         :type line: JSON String document
-        
+
         """
 
         self.coord = self.lang = None
@@ -37,7 +39,7 @@ class ConciseTweet:
         :type line: JSON String document
         :return: a formatted Python object if is a tweet, otherwise None
         :rtype: dict
-        
+
         """
 
         if line.startswith('{"id"'):
@@ -53,35 +55,53 @@ class ConciseTweet:
         return None
 
 
-# @TODO: Remove rank
-def count(rank, grids, batch, cell_tweetlang_dict, lang_tweet_dict):
+def count(grids, batch, cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt):
     """
-    Accumulator folds by new batch of tweets
-    
+    Accumulators fold by new batch of tweets
+
     :param grids: coordinates of grid cells
     :param batch: a list of str tweets
-    :param cell_tweetlang_dict: {cell: (#tweets, #lang)}
-    :param lang_tweet_dict: {lang: #tweets}
-    :return: 2 updated dictionaries
-    
+    :param cell_lang_cut: {cell: {lang}}
+    :param cell_tweet_cnt: {cell: #tweets}
+    :param lang_tweet_cnt: {lang: #tweets}
+    :return: 1 updated dict, 2 updated counters in tuple
+
     """
     for line in batch:
         c_tweet = ConciseTweet(line)
         if c_tweet.coord and c_tweet.lang:
-            # @TODO
-            print(rank, c_tweet.coord, c_tweet.lang)
-    
-    return cell_tweetlang_dict, lang_tweet_dict
+            cell = locate(c_tweet.coord, grids)
+            # inside
+            if cell != None:
+                cell_tweet_cnt[cell] += 1
+                lang_tweet_cnt[c_tweet.lang] += 1
+                cell_lang_cnt[cell].add(c_tweet.lang)
 
-def output():
-    """
-    
-    
-    """
+    return cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt
 
 
-def output_mpi(cell_tweetlang_dict, lang_tweet_dict):
+def locate(coord, grids):
     """
-    
-    
+    :return: cell that coord locates in, return None if found outside the grids
+    :rtype: str
+
     """
+    for cell in grids:
+        
+
+
+def addDictset(d1, d2):
+    """
+    :type d1, d2: defaultdict(set)
+    :return: merged new object
+
+    """
+    for k, v in d2.items():
+        d1[k].update(v)
+    return d1
+
+
+def output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt, out_path):
+
+    print(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt.most_common(10))
+    return
