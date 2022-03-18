@@ -162,7 +162,7 @@ def output(cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt):
     print('''
 ===================================================
 ''')
-    print('#Top 10 Languages & #Tweets')
+    print('#Top 10 Languages & #Tweets\n')
     # merge chinese
     lang_tweet_cnt['zh-cn'] += lang_tweet_cnt['zh-tw']
     del lang_tweet_cnt['zh-tw']
@@ -171,7 +171,7 @@ def output(cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt):
         for l, c in lang_tweet_cnt.items() if c > 0 and l in LANG_ATR
     }).most_common(10)
     for l, c in top:
-        print('\n' + l, '\t', c)
+        print(l, '\t', c)
 
     print('''
 ===================================================''')
