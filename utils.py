@@ -91,13 +91,13 @@ class ConciseTweet:
         return None
 
 
-def count(grids, batch, cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt):
+def count(grids, batch, cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt):
     """
     Accumulators fold by new batch of tweets
 
     :param grids: coordinates of grid cells
     :param batch: a list of str tweets
-    :param cell_lang_cut: {cell: {lang}}
+    :param cell_lang_dict: {cell: {lang} }
     :param cell_tweet_cnt: {cell: #tweets}
     :param lang_tweet_cnt: {lang: #tweets}
     :return: 1 updated dict, 2 updated counters in tuple
@@ -111,9 +111,9 @@ def count(grids, batch, cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt):
             if cell != None:
                 cell_tweet_cnt[cell] += 1
                 lang_tweet_cnt[c_tweet.lang] += 1
-                cell_lang_cnt[cell].add(c_tweet.lang)
+                cell_lang_dict[cell].add(c_tweet.lang)
 
-    return cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt
+    return cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt
 
 
 def locate(coord, grids):
@@ -148,7 +148,7 @@ def addDictset(d1, d2, datatype):
     return d1
 
 
-def output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt):
+def output(cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt):
 
     print('''
 ===================================================
@@ -158,7 +158,7 @@ def output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt):
                  'C1', 'C2', 'C3', 'C4', 'D1', 'D2', 'D3', 'D4']:
         print(cell, '\t', end='')
         print(cell_tweet_cnt[cell], '\t\t', end='')
-        print(len(cell_lang_cnt[cell]))
+        print(len(cell_lang_dict[cell]))
     print('''
 ===================================================
 ''')

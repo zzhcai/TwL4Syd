@@ -31,7 +31,7 @@ def main():
     rank = comm.Get_rank()
     size = comm.Get_size()
 
-    cell_lang_cnt = defaultdict(set)
+    cell_lang_dict = defaultdict(set)
     cell_tweet_cnt, lang_tweet_cnt = Counter(), Counter()
     
     with open(args.grid_path, 'r') as fg:
@@ -42,11 +42,11 @@ def main():
 
     if size == 1:
         with open(args.twitter_path, 'r') as ft:
-            (cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt) = \
+            (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
                 count(
                     grids,
                     ft,
-                    cell_lang_cnt,
+                    cell_lang_dict,
                     cell_tweet_cnt,
                     lang_tweet_cnt,
                     )
@@ -79,11 +79,11 @@ def main():
                 if not batch:   # []
                     break
                 else:
-                    (cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt) = \
+                    (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
                         count(
                             grids,
                             batch,
-                            cell_lang_cnt,
+                            cell_lang_dict,
                             cell_tweet_cnt,
                             lang_tweet_cnt,
                             )
@@ -93,13 +93,13 @@ def main():
         dictsetSumOp = MPI.Op.Create(addDictset, commute=True)
         counterSumOp = MPI.Op.Create(lambda c1, c2, datatype: c1 + c2,
                                      commute=True)
-        cell_lang_cnt  = comm.reduce(cell_lang_cnt,  op=dictsetSumOp, root=0)
+        cell_lang_dict = comm.reduce(cell_lang_dict, op=dictsetSumOp, root=0)
         cell_tweet_cnt = comm.reduce(cell_tweet_cnt, op=counterSumOp, root=0)
         lang_tweet_cnt = comm.reduce(lang_tweet_cnt, op=counterSumOp, root=0)
 
 
     if rank == 0:
-        output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt)
+        output(cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt)
 
 
 if __name__ == '__main__':
