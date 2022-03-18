@@ -89,8 +89,10 @@ def main():
         cell_tweet_cnt = comm.reduce(cell_tweet_cnt, op=counterSumOp, root=0)
         lang_tweet_cnt = comm.reduce(lang_tweet_cnt, op=counterSumOp, root=0)
 
-    output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt,
-           args.out_path)
+
+    if rank == 0:
+        output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt,
+               args.out_path)
 
 
 if __name__ == '__main__':

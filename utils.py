@@ -82,15 +82,26 @@ def count(grids, batch, cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt):
 
 def locate(coord, grids):
     """
+    Only handles grids of size 4 x 4
+
     :return: cell that coord locates in, return None if found outside the grids
     :rtype: str
 
     """
-    for cell in grids:
-        
+    for i, cell in enumerate(grids):
+        llong, rlong, ulat, dlat = (cell[0][0], cell[1][0],
+                cell[0][1], cell[2][1])
+        h = llong < coord[0] and coord[0] <= rlong
+        v = ulat >= coord[1] and coord[1] > dlat
+        if h and v or \
+                i in [0, 1, 2] and llong == coord[0] or \
+                i in [7, 11, 15] and coord[1] == dlat or \
+                i == 3 and coord == cell[3]:
+            return 'ABCD'[i % 4] + str(i // 4 + 1)
+    return None
 
 
-def addDictset(d1, d2):
+def addDictset(d1, d2, datatype):
     """
     :type d1, d2: defaultdict(set)
     :return: merged new object
