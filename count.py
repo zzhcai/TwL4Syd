@@ -15,8 +15,11 @@ parser.add_argument('--twitter_path', type=str,
                     default=r'data/largeTwitter.json',
                     help='Path to the twitter data file'
                     )
-parser.add_argument('--out_path', type=str, default=r'out/results.txt',
+parser.add_argument('--out_path', type=str, default=r'output/results.txt',
                     help='Path to output'
+                    )
+parser.add_argument('--show', type=str, default='y',
+                    help='y to print results in terminal'
                     )
 parser.add_argument('--batch_size_per_message', type=int, default=50,
                     help='The number of tweets bared per message'
@@ -50,7 +53,7 @@ def main():
                     ft,
                     cell_lang_cnt,
                     cell_tweet_cnt,
-                    lang_tweet_cnt
+                    lang_tweet_cnt,
                     )
 
     # rank-0 task distributor
@@ -102,7 +105,7 @@ def main():
 
     if rank == 0:
         output(cell_lang_cnt, cell_tweet_cnt, lang_tweet_cnt,
-               args.out_path)
+               args.out_path, args.show)
 
 
 if __name__ == '__main__':

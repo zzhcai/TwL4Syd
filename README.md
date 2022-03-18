@@ -22,7 +22,7 @@ Return the final results and the time to run the job itself.
 ├──── intercomm             # spawn dynamic inter-commuincator
 ├────── count.py
 ├────── pergridcount.py
-├── output                  # output result from SLURM job
+├── output                  # output resultS from SLURM job
 ├────
 ├── scripts
 ├──── 1n1c.slurm            # 1 node 1 core
