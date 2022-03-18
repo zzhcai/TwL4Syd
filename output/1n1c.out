@@ -1,0 +1,51 @@
+
+===================================================
+
+Cell	#Total Tweets	#Number of Languages Used
+
+A1 	0 		0
+A2 	0 		0
+A3 	0 		0
+A4 	0 		0
+B1 	0 		0
+B2 	253 		8
+B3 	1054 		19
+B4 	0 		0
+C1 	0 		0
+C2 	184 		14
+C3 	6674 		31
+C4 	0 		0
+D1 	0 		0
+D2 	0 		0
+D3 	0 		0
+D4 	0 		0
+
+===================================================
+
+#Top 10 Languages & #Tweets
+
+English 	 7596
+
+Japanese 	 80
+
+Spanish 	 60
+
+Portuguese 	 28
+
+Italian 	 26
+
+Romanian 	 22
+
+German 	 21
+
+French 	 20
+
+Thai 	 11
+
+Dutch 	 10
+
+===================================================
+
+real	5m4.243s
+user	4m48.761s
+sys	0m14.015s
