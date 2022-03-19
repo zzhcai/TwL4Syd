@@ -15,15 +15,16 @@ Return the final results and the time to run the job itself.
 # Repo Structure
 
 ```
-├── data
-├──── bigTwitter.json       # not uploaded
-├──── sydGrid.json
 ├── deprecated              # non-ideal approaches
 ├──── intercomm             # spawn dynamic inter-commuincator
 ├────── count.py
 ├────── pergridcount.py
-├── output                  # output resultS from SLURM job
-├────
+├──── setup                 # setup as a root user
+├────── setup.sh
+├── output                  # results
+├──── 1n1c.out
+├──── 1n8c.out
+├──── 2n8c.out
 ├── scripts
 ├──── 1n1c.slurm            # 1 node 1 core
 ├──── 1n8c.slurm            # 1 node 8 core
@@ -35,15 +36,16 @@ Return the final results and the time to run the job itself.
 ├── count.py                # main
 ├── utils.py
 ├── mesh.png
-├── requirements.txt
-├── run.sh                  # application entrypoint
-└── setup.sh                # prerequisite
+├── requirements.txt        # Python dependencies
+└── run.sh                  # application entrypoint
 ```
 
 # Run
 
+We assume `/data/projects/COMP90024/bigTwitter.json` and `/data/projects/COMP90024/sydGrid.json` to be linked. If you'd like to put data somewhere else, take look at line 5-20 in `run.sh`.
+
+In the root directory, invoke
 ```
-sudo chmod +x setup.sh run.sh
-sudo ./setup.sh
-./run.sh
+bash run.sh
 ```
+to run application on each of the 3 resources. This will take a few minutes, later the results can be found in `/out`.
