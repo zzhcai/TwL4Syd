@@ -39,7 +39,7 @@ Return the final results and the time to run the job itself.
 ├── requirements.txt              # Python dependencies
 └── run.sh                        # application entrypoint
 |
-├── largeTwitter.json             # linked
+├── bigTwitter.json             # linked
 └── sydGrid.json                  #
 ```
 
