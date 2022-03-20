@@ -2,22 +2,22 @@
 
 echo ''
 echo '=== Linking files ================================='
-if [ ! -f "bigTwitter.json" ]
-then
-    ln -s /data/projects/COMP90024/bigTwitter.json
-fi
-if [ ! -f "smallTwitter.json" ]
-then
-    ln -s /data/projects/COMP90024/smallTwitter.json
-fi
-if [ ! -f "tinyTwitter.json" ]
-then
-    ln -s /data/projects/COMP90024/tinyTwitter.json
-fi
 if [ ! -f "sydGrid.json" ]
 then
-    ln -s /data/projects/COMP90024/sydGrid.json
+    ln -s ${DATA_PATH}/sydGrid.json
 fi
+if [ ! -f "bigTwitter.json" ]
+then
+    ln -s ${DATA_PATH}/bigTwitter.json
+fi
+#if [ ! -f "smallTwitter.json" ]
+#then
+#    ln -s ${DATA_PATH}/smallTwitter.json
+#fi
+#if [ ! -f "tinyTwitter.json" ]
+#then
+#    ln -s ${DATA_PATH}/tinyTwitter.json
+#fi
 echo 'Done.'
 echo ''
 
