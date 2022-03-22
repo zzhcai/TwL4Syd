@@ -45,11 +45,26 @@ Return the final results and the time to run the job itself.
 
 # Run
 
+Assume pre-existing modules:
+
+```
+foss/2021a
+mpi4py/3.0.2-timed-pingpong
+python/3.9.5
+```
+
 In the root directory, invoke
 
 ```
 export DATA_PATH=/data/projects/COMP90024   # example path
 bash run.sh
+squeue -u <usrname>                         # track jobs
 ```
 
 to run application on each of the 3 resources. This will take a few minutes, later the results can be found in `/out`.
+
+To cancel a specifc sbatch job, try
+
+```
+scancel <job_id>
+```
