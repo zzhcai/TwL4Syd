@@ -4,20 +4,20 @@
 Cell	#Total Tweets	#Number of Languages Used
 
 A1 	21 		2
-A2 	184 		5
-A3 	47 		5
-A4 	98 		7
-B1 	23 		3
+A2 	23 		3
+A3 	11 		3
+A4 	85 		4
+B1 	184 		5
 B2 	508 		13
-B3 	97 		7
-B4 	33 		2
-C1 	11 		3
-C2 	642 		13
+B3 	642 		13
+B4 	470 		11
+C1 	47 		5
+C2 	97 		7
 C3 	4522 		31
-C4 	162 		8
-D1 	85 		4
-D2 	470 		11
-D3 	969 		22
+C4 	969 		22
+D1 	98 		7
+D2 	33 		2
+D3 	162 		8
 D4 	3 		1
 
 ===================================================
@@ -36,18 +36,18 @@ French 	 18
 Thai 	 11
 
 ===================================================
-Job ID           : 34265250
+Job ID           : 34266364
 Cluster          : spartan
 User/Project     : hongweic1/comp90024
 Nodes            : 1
-Wall-clock time  : 00:04:51 / 00:10:00
+Wall-clock time  : 00:04:59 / 00:10:00
 
-Displaying overall resources usage from 2022-03-22 18:35:17 to 2022-03-22 18:40:08:
+Displaying overall resources usage from 2022-03-22 19:28:37 to 2022-03-22 19:33:36:
 
 NODE            CPU#        TOT%   ( USR   / SYS   / WIO   / IDLE  ) 
 
-spartan-bm089 : 
-                CPU# 1    : 97.0   (  92.6 /   4.5 /   0.0 /   3.0 ) 
+spartan-bm088 : 
+                CPU# 1    : 94.2   (  88.4 /   5.8 /   0.0 /   5.8 ) 
 
 
 Allocated CPUs            : 1    

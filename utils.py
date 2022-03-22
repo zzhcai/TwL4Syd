@@ -131,11 +131,11 @@ def locate(coord, grids):
         h = llong < coord[0] and coord[0] <= rlong
         v = ulat >= coord[1] and coord[1] > dlat
         if h and v or \
-                i in [0, 1, 2] and llong == coord[0] or \
-                i in [7, 11, 15] and coord[1] == dlat or \
-                i == 3 and coord == cell[3]:
-            return ['D3', 'D2', 'D1', 'C4', 'C3', 'C2', 'C1', 'B4', 'B3', 
-                    'B2', 'B1', 'A4', 'A3', 'A2', 'A1', 'D4'][i]
+                i in [11, 12, 13, 14] and llong == coord[0] and v or \
+                i in [15, 3, 7, 11] and coord[1] == dlat and h or \
+                i == 11 and coord == cell[1]:
+            return ['C4', 'B4', 'A4', 'D3', 'C3', 'B3', 'A3', 
+                    'D2', 'C2', 'B2', 'A2', 'D1', 'C1', 'B1', 'A1', 'D4'][i]
     return None
 
 
