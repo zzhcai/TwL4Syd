@@ -8,4 +8,7 @@
 
 cd ${SLURM_SUBMIT_DIR}
 
-time mpiexec -n 8 python3 count.py bigTwitter.json sydGrid.json
+srun -n 8 python3 count.py bigTwitter.json sydGrid.json
+
+my-job-stats -a -n -s
+

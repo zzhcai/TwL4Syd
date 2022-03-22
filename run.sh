@@ -22,8 +22,8 @@ echo 'Done.'
 echo ''
 
 echo '=== Loading modules ==============================='
-module load gcc/10.2.0
-module load openmpi/4.1.1
+module load foss/2021a
+module load mpi4py/3.0.2-timed-pingpong
 module load python/3.9.5
 
 echo '=== Installing dependencies ======================='

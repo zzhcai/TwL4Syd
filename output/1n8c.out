@@ -3,49 +3,66 @@
 
 Cell	#Total Tweets	#Number of Languages Used
 
-A1 	0 		0
-A2 	0 		0
-A3 	0 		0
-A4 	0 		0
-B1 	0 		0
-B2 	253 		8
-B3 	1054 		19
-B4 	0 		0
-C1 	0 		0
-C2 	184 		14
-C3 	6674 		31
-C4 	0 		0
-D1 	0 		0
-D2 	0 		0
-D3 	0 		0
-D4 	0 		0
+A1 	21 		2
+A2 	184 		5
+A3 	47 		5
+A4 	98 		7
+B1 	23 		3
+B2 	508 		13
+B3 	97 		7
+B4 	33 		2
+C1 	11 		3
+C2 	642 		13
+C3 	4522 		31
+C4 	162 		8
+D1 	85 		4
+D2 	470 		11
+D3 	969 		22
+D4 	3 		1
 
 ===================================================
 
 #Top 10 Languages & #Tweets
 
-English 	 7596
-
-Japanese 	 80
-
-Spanish 	 60
-
-Portuguese 	 28
-
-Italian 	 26
-
+English 	 7329
+Japanese 	 79
+Spanish 	 59
+Indonesian 	 52
+Portuguese 	 27
 Romanian 	 22
-
-German 	 21
-
-French 	 20
-
+Italian 	 20
+German 	 19
+French 	 18
 Thai 	 11
 
-Dutch 	 10
-
 ===================================================
+Job ID           : 34265251
+Cluster          : spartan
+User/Project     : hongweic1/comp90024
+Nodes            : 1
+Wall-clock time  : 00:02:03 / 00:10:00
 
-real	1m54.848s
-user	14m53.473s
-sys	0m16.723s
+Displaying overall resources usage from 2022-03-22 18:39:52 to 2022-03-22 18:41:55:
+
+NODE            CPU#        TOT%   ( USR   / SYS   / WIO   / IDLE  ) 
+
+spartan-bm109 : 
+                CPU# 1    : 94.4   (  81.2 /  13.2 /   0.0 /   5.6 ) 
+                CPU# 2    : 93.0   (  92.3 /   0.8 /   0.0 /   6.9 ) 
+                CPU# 3    : 93.9   (  93.2 /   0.7 /   0.0 /   6.1 ) 
+                CPU# 4    : 92.4   (  91.8 /   0.7 /   0.0 /   7.6 ) 
+                CPU# 5    : 92.4   (  91.8 /   0.6 /   0.0 /   7.6 ) 
+                CPU# 6    : 92.4   (  91.8 /   0.6 /   0.0 /   7.6 ) 
+                CPU# 7    : 93.5   (  92.8 /   0.7 /   0.0 /   6.5 ) 
+                CPU# 8    : 93.4   (  92.7 /   0.7 /   0.0 /   6.6 ) 
+
+
+Allocated CPUs            : 8    
+  CPUs with usage <25%    : 0    
+  CPUs with usage <50%    : 0    
+  CPUs with usage >50%    : 8    
+
+Memory used (RAM)         : 0.0%  [4MB of 32000MB]
+
+--------------------------------------------
+
