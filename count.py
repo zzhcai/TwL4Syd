@@ -51,42 +51,34 @@ def main():
                     lang_tweet_cnt,
                     )
 
-    # rank-0 task distributor
+    # share the work
 
     else:
-        if rank == 0:
-            with open(args.twitter_path, 'r') as ft:
-                to = 1
-                batch = []
-                for i, line in enumerate(ft):
+        with open(args.twitter_path, 'r') as ft:
+            batch = []
+            for i, line in enumerate(ft):
+                if i % size == rank:
                     batch.append(line)
-                    if (i + 1) % args.batch_size_per_message == 0:   # full batch
-                        comm.send(batch, dest=to, tag=31)
-                        to = (to + 1 if to < size - 1 else 1)
+                    if len(batch) >= args.batch_size_per_message:   # full batch
+                        (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
+                            count(
+                                grids,
+                                batch,
+                                cell_lang_dict,
+                                cell_tweet_cnt,
+                                lang_tweet_cnt,
+                                )
                         batch.clear()
-                # last batch of tweets
-                if batch:
-                    comm.send(batch, dest=to, tag=31)
-                # stop send
-                for i in range(1, size):
-                    comm.send([], dest=i, tag=31)
-
-        # other workers
-
-        else:
-            while True:
-                batch = comm.recv(source=0, tag=31)
-                if not batch:   # []
-                    break
-                else:
-                    (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
-                        count(
-                            grids,
-                            batch,
-                            cell_lang_dict,
-                            cell_tweet_cnt,
-                            lang_tweet_cnt,
-                            )
+            # last batch of tweets
+            if batch:
+                (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
+                    count(
+                        grids,
+                        batch,
+                        cell_lang_dict,
+                        cell_tweet_cnt,
+                        lang_tweet_cnt,
+                        )
 
         # gathering
 
