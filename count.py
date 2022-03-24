@@ -22,8 +22,6 @@ parser.add_argument('--batch_size', type=int, default=50,
                     )
 args = parser.parse_args()
 
-N_GRID = 16   # number of grids
-
 
 def main():
 
@@ -59,6 +57,7 @@ def main():
             ft.seek(0, 2)
             portion_len = ft.tell() // size
             read_start, read_end = map((portion_len).__mul__, (rank, rank+1))
+            # ensure end before EOF
             if rank == size - 1:
                 read_end = ft.tell() - 1
 
@@ -75,9 +74,11 @@ def main():
                     break
 
             batch = []
-            while ft.tell() <= read_end:
-                batch.append(ft.readline())
-                if len(batch) >= args.batch_size or ft.tell() > read_end:
+            while read_start <= read_end:
+                line = ft.readline()
+                read_start += (len(line.encode('utf-8')) + 1)   # 2 bytes for newline
+                batch.append(line)
+                if len(batch) >= args.batch_size or read_start > read_end:
                     (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
                         count(
                             grids,
@@ -104,3 +105,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

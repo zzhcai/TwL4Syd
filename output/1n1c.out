@@ -36,18 +36,18 @@ French 	 18
 Thai 	 11
 
 ===================================================
-Job ID           : 34326481
+Job ID           : 34333491
 Cluster          : spartan
-User/Project     : hongweic1/comp90024
+User/Project     : zhcai/comp90024
 Nodes            : 1
-Wall-clock time  : 00:05:03 / 00:10:00
+Wall-clock time  : 00:04:59 / 00:10:00
 
-Displaying overall resources usage from 2022-03-24 14:54:14 to 2022-03-24 14:59:17:
+Displaying overall resources usage from 2022-03-24 22:28:55 to 2022-03-24 22:33:54:
 
 NODE            CPU#        TOT%   ( USR   / SYS   / WIO   / IDLE  ) 
 
-spartan-bm088 : 
-                CPU# 1    : 94.3   (  88.0 /   6.3 /   0.0 /   5.7 ) 
+spartan-bm097 : 
+                CPU# 1    : 97.3   (  91.3 /   6.0 /   0.0 /   2.7 ) 
 
 
 Allocated CPUs            : 1    
