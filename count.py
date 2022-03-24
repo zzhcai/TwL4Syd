@@ -17,7 +17,7 @@ parser.add_argument('twitter_path', type=str,
 parser.add_argument('grid_path', type=str,
                     help='Path to the grid shape file'
                     )
-parser.add_argument('--batch_size_per_message', type=int, default=50,
+parser.add_argument('--batch_size', type=int, default=50,
                     help='The number of tweets bared per message'
                     )
 args = parser.parse_args()
@@ -55,28 +55,29 @@ def main():
 
     else:
         with open(args.twitter_path, 'r') as ft:
-            batch = []
+            # specify read range
             ft.seek(0, 2)
-            file_len = ft.tell()
-            portion_len = file_len // size
-            read_start = portion_len * rank
-            read_end = portion_len * (rank + 1)
+            portion_len = ft.tell() // size
+            read_start, read_end = map((portion_len).__mul__, (rank, rank+1))
+            if rank == size - 1:
+                read_end = ft.tell() - 1
+
+            # ditch partial line
             ft.seek(read_start)
             if rank != 0:
-                i = 0
                 while True:
                     try:
-                        ft.seek(read_start + i)
-                        ft.readline()   # ditch partial line
+                        ft.readline()
                     except UnicodeDecodeError:
-                        i += 1
+                        read_start += 1
+                        ft.seek(read_start)
                         continue
                     break
-            if read_end == file_len:
-                read_end -= 1   # ensure end before EOF
+
+            batch = []
             while ft.tell() <= read_end:
                 batch.append(ft.readline())
-                if len(batch) >= args.batch_size_per_message:   # full batch
+                if len(batch) >= args.batch_size or ft.tell() > read_end:
                     (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
                         count(
                             grids,
@@ -86,14 +87,6 @@ def main():
                             lang_tweet_cnt,
                             )
                     batch.clear()
-            (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
-                count(
-                    grids,
-                    batch,
-                    cell_lang_dict,
-                    cell_tweet_cnt,
-                    lang_tweet_cnt,
-                    )
 
         # gathering
 
