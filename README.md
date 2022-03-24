@@ -19,8 +19,8 @@ Return the final results and the time to run the job itself.
 |   ├──── intercomm/              # spawn dynamic inter-commuincator
 |   |   ├────── count.py
 |   |   └────── pergridcount.py
-|   └──── setup/                  # setup as a root user
-|       └────── setup.sh
+|   ├──── setup/setup.sh          # setup as a root user
+|   └──── sendrecv/count.py       # by-master task allocation
 ├── output/                       # results
 |   ├──── 1n1c.out
 |   ├──── 1n8c.out
