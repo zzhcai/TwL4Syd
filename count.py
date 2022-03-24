@@ -56,29 +56,44 @@ def main():
     else:
         with open(args.twitter_path, 'r') as ft:
             batch = []
-            for i, line in enumerate(ft):
-                if i % size == rank:
-                    batch.append(line)
-                    if len(batch) >= args.batch_size_per_message:   # full batch
-                        (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
-                            count(
-                                grids,
-                                batch,
-                                cell_lang_dict,
-                                cell_tweet_cnt,
-                                lang_tweet_cnt,
-                                )
-                        batch.clear()
-            # last batch of tweets
-            if batch:
-                (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
-                    count(
-                        grids,
-                        batch,
-                        cell_lang_dict,
-                        cell_tweet_cnt,
-                        lang_tweet_cnt,
-                        )
+            ft.seek(0, 2)
+            file_len = ft.tell()
+            portion_len = file_len // size
+            read_start = portion_len * rank
+            read_end = portion_len * (rank + 1)
+            ft.seek(read_start)
+            if rank != 0:
+                i = 0
+                while True:
+                    try:
+                        ft.seek(read_start + i)
+                        ft.readline()   # ditch partial line
+                    except UnicodeDecodeError:
+                        i += 1
+                        continue
+                    break
+            if read_end == file_len:
+                read_end -= 1   # ensure end before EOF
+            while ft.tell() <= read_end:
+                batch.append(ft.readline())
+                if len(batch) >= args.batch_size_per_message:   # full batch
+                    (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
+                        count(
+                            grids,
+                            batch,
+                            cell_lang_dict,
+                            cell_tweet_cnt,
+                            lang_tweet_cnt,
+                            )
+                    batch.clear()
+            (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
+                count(
+                    grids,
+                    batch,
+                    cell_lang_dict,
+                    cell_tweet_cnt,
+                    lang_tweet_cnt,
+                    )
 
         # gathering
 
