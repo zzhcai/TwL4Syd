@@ -25,6 +25,11 @@ Return the final results and the time to run the job itself.
 |   ├──── 1n1c.out
 |   ├──── 1n8c.out
 |   └──── 2n8c.out
+├── ref/                          # report reference
+|   ├──── cf.png
+|   ├──── cf.py
+|   ├──── ordering.png
+|   └──── requirements.txt
 ├── scripts/
 |   ├──── 1n1c.slurm              # 1 node 1 core
 |   ├──── 1n8c.slurm              # 1 node 8 core
