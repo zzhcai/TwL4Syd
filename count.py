@@ -17,7 +17,7 @@ parser.add_argument('twitter_path', type=str,
 parser.add_argument('grid_path', type=str,
                     help='Path to the grid shape file'
                     )
-parser.add_argument('--batch_size_per_message', type=int, default=50,
+parser.add_argument('--batch_size', type=int, default=50,
                     help='The number of tweets bared per message'
                     )
 args = parser.parse_args()
@@ -51,34 +51,33 @@ def main():
                     lang_tweet_cnt,
                     )
 
-    # rank-0 task distributor
+    # share the work
 
     else:
-        if rank == 0:
-            with open(args.twitter_path, 'r') as ft:
-                to = 1
-                batch = []
-                for i, line in enumerate(ft):
-                    batch.append(line)
-                    if (i + 1) % args.batch_size_per_message == 0:   # full batch
-                        comm.send(batch, dest=to, tag=31)
-                        to = (to + 1 if to < size - 1 else 1)
-                        batch.clear()
-                # last batch of tweets
-                if batch:
-                    comm.send(batch, dest=to, tag=31)
-                # stop send
-                for i in range(1, size):
-                    comm.send([], dest=i, tag=31)
+        with open(args.twitter_path, 'r') as ft:
+            # specify read range
+            ft.seek(0, 2)
+            portion_len = ft.tell() // size
+            read_start, read_end = map((portion_len).__mul__, (rank, rank+1))
+            if rank == size - 1:
+                read_end = ft.tell() - 1
 
-        # other workers
-
-        else:
-            while True:
-                batch = comm.recv(source=0, tag=31)
-                if not batch:   # []
+            # ditch partial line
+            ft.seek(read_start)
+            if rank != 0:
+                while True:
+                    try:
+                        ft.readline()
+                    except UnicodeDecodeError:
+                        read_start += 1
+                        ft.seek(read_start)
+                        continue
                     break
-                else:
+
+            batch = []
+            while ft.tell() <= read_end:
+                batch.append(ft.readline())
+                if len(batch) >= args.batch_size or ft.tell() > read_end:
                     (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
                         count(
                             grids,
@@ -87,6 +86,7 @@ def main():
                             cell_tweet_cnt,
                             lang_tweet_cnt,
                             )
+                    batch.clear()
 
         # gathering
 
