@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 
 x = ['1-node 1-core', '1-node 8-core', '2-node 8-core']
-y = [299, 59, 47]
-time_seq = round(47 - (299 - 47) / 7)
+y = [250, 35, 34]
+time_seq = round(34.5 - (250 - 34.5) / 7)
 y_seq = [time_seq] * 3
 
 plt.tight_layout()
