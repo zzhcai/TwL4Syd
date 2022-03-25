@@ -36,33 +36,33 @@ French 	 18
 Thai 	 11
 
 ===================================================
-Job ID           : 34333493
+Job ID           : 34353929
 Cluster          : spartan
 User/Project     : zhcai/comp90024
 Nodes            : 2
-Wall-clock time  : 00:00:47 / 00:10:00
+Wall-clock time  : 00:00:34 / 00:01:00
 
-Displaying overall resources usage from 2022-03-24 22:27:55 to 2022-03-24 22:28:42:
+Displaying overall resources usage from 2022-03-25 22:39:50 to 2022-03-25 22:40:24:
 
 NODE            CPU#        TOT%   ( USR   / SYS   / WIO   / IDLE  ) 
 
-spartan-bm102 : 
-                CPU# 1    : 56.3   (  52.4 /   4.0 /   0.0 /  43.7 ) 
-                CPU# 2    : 56.1   (  52.4 /   3.7 /   0.0 /  43.9 ) 
-                CPU# 3    : 55.9   (  52.2 /   3.7 /   0.0 /  44.1 ) 
-                CPU# 4    : 56.0   (  52.6 /   3.4 /   0.0 /  44.0 ) 
+spartan-bm001 : 
+                CPU# 1    : 20.6   (  15.0 /   5.6 /   0.0 /  79.4 ) 
+                CPU# 2    : 19.6   (  14.7 /   4.8 /   0.0 /  80.4 ) 
+                CPU# 3    : 19.3   (  14.6 /   4.8 /   0.2 /  80.5 ) 
+                CPU# 4    : 19.6   (  14.8 /   4.8 /   0.0 /  80.4 ) 
 
-spartan-bm105 : 
-                CPU# 5    : 76.4   (  70.4 /   6.0 /   0.1 /  23.5 ) 
-                CPU# 6    : 76.3   (  70.2 /   6.0 /   0.1 /  23.6 ) 
-                CPU# 7    : 76.4   (  70.2 /   6.2 /   0.1 /  23.5 ) 
-                CPU# 8    : 76.7   (  70.2 /   6.5 /   0.1 /  23.2 ) 
+spartan-bm100 : 
+                CPU# 5    : 14.5   (  13.1 /   1.4 /   0.0 /  85.5 ) 
+                CPU# 6    : 14.5   (  13.4 /   1.2 /   0.0 /  85.5 ) 
+                CPU# 7    : 65.3   (  64.6 /   0.8 /   0.0 /  34.7 ) 
+                CPU# 8    : 58.2   (  57.7 /   0.5 /   0.0 /  41.8 ) 
 
 
 Allocated CPUs            : 8    
-  CPUs with usage <25%    : 0    
+  CPUs with usage <25%    : 6    
   CPUs with usage <50%    : 0    
-  CPUs with usage >50%    : 8    
+  CPUs with usage >50%    : 2    
 
 Memory used (RAM)         : 0.0%  [4MB of 32000MB]
 

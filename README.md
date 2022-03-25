@@ -15,37 +15,38 @@ Return the final results and the time to run the job itself.
 # Repo Structure
 
 ```
-├── deprecated/                   # non-ideal approaches
-|   ├──── intercomm/              # spawn dynamic inter-commuincator
+├── deprecated/                     # non-ideal approaches
+|   ├──── intercomm/                # spawn dynamic inter-commuincator
 |   |   ├────── count.py
 |   |   └────── pergridcount.py
-|   ├──── setup/setup.sh          # setup as a root user
-|   └──── sendrecv/count.py       # by-master task allocation
-├── output/                       # results
+|   ├──── openr/1n1c-nonbytes.out   # 1n1c results for 'r'
+|   ├──── setup/setup.sh            # setup as a root user
+|   └──── sendrecv/count.py         # by-master task allocation
+├── output/                         # results
 |   ├──── 1n1c.out
 |   ├──── 1n8c.out
 |   └──── 2n8c.out
-├── ref/                          # report reference
+├── ref/                            # report reference
 |   ├──── cf.png
 |   ├──── cf.py
 |   ├──── ordering.png
 |   └──── requirements.txt
 ├── scripts/
-|   ├──── 1n1c.slurm              # 1 node 1 core
-|   ├──── 1n8c.slurm              # 1 node 8 core
-|   └──── 2n8c.slurm              # 2 node 8 cores
+|   ├──── 1n1c.slurm                # 1 node 1 core
+|   ├──── 1n8c.slurm                # 1 node 8 core
+|   └──── 2n8c.slurm                # 2 node 8 cores
 ├── .gitattributes
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-├── count.py                      # main
+├── count.py                        # main
 ├── utils.py
 ├── mesh.png
-├── requirements.txt              # Python dependencies
-└── run.sh                        # application entrypoint
+├── requirements.txt                # Python dependencies
+└── run.sh                          # application entrypoint
 |
-├── bigTwitter.json               # linked
-└── sydGrid.json                  #
+├── bigTwitter.json                 # linked
+└── sydGrid.json                    #
 ```
 
 # Run

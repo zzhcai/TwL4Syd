@@ -39,7 +39,7 @@ def main():
     # MPI not needed
 
     if size == 1:
-        with open(args.twitter_path, 'r') as ft:
+        with open(args.twitter_path, 'rb') as ft:
             (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
                 count(
                     grids,
@@ -52,11 +52,12 @@ def main():
     # share the work
 
     else:
-        with open(args.twitter_path, 'r') as ft:
+        with open(args.twitter_path, 'rb') as ft:   # as bytes
             # specify read range
             ft.seek(0, 2)
             portion_len = ft.tell() // size
             read_start, read_end = map((portion_len).__mul__, (rank, rank+1))
+
             # ensure end before EOF
             if rank == size - 1:
                 read_end = ft.tell() - 1
@@ -64,19 +65,12 @@ def main():
             # ditch partial line
             ft.seek(read_start)
             if rank != 0:
-                while True:
-                    try:
-                        ft.readline()
-                    except UnicodeDecodeError:
-                        read_start += 1
-                        ft.seek(read_start)
-                        continue
-                    break
+                read_start += len(ft.readline())
 
             batch = []
             while read_start <= read_end:
                 line = ft.readline()
-                read_start += (len(line.encode('utf-8')) + 1)   # 2 bytes for newline
+                read_start += len(line)
                 batch.append(line)
                 if len(batch) >= args.batch_size or read_start > read_end:
                     (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \

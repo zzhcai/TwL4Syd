@@ -96,7 +96,7 @@ def count(grids, batch, cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt):
     Accumulators fold by new batch of tweets
 
     :param grids: coordinates of grid cells
-    :param batch: a list of str tweets
+    :param batch: a list of byte-format tweets
     :param cell_lang_dict: {cell: {lang} }
     :param cell_tweet_cnt: {cell: #tweets}
     :param lang_tweet_cnt: {lang: #tweets}
@@ -104,7 +104,7 @@ def count(grids, batch, cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt):
 
     """
     for line in batch:
-        c_tweet = ConciseTweet(line)
+        c_tweet = ConciseTweet(line.decode('utf-8'))
         if c_tweet.coord and c_tweet.lang:
             cell = locate(c_tweet.coord, grids)
             # inside

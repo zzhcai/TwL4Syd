@@ -36,31 +36,31 @@ French 	 18
 Thai 	 11
 
 ===================================================
-Job ID           : 34333492
+Job ID           : 34353928
 Cluster          : spartan
 User/Project     : zhcai/comp90024
 Nodes            : 1
-Wall-clock time  : 00:00:52 / 00:10:00
+Wall-clock time  : 00:00:35 / 00:01:00
 
-Displaying overall resources usage from 2022-03-24 22:27:55 to 2022-03-24 22:28:47:
+Displaying overall resources usage from 2022-03-25 22:39:50 to 2022-03-25 22:40:25:
 
 NODE            CPU#        TOT%   ( USR   / SYS   / WIO   / IDLE  ) 
 
-spartan-bm109 : 
-                CPU# 1    : 82.9   (  70.7 /  12.1 /   0.0 /  17.1 ) 
-                CPU# 2    : 82.8   (  72.5 /  10.3 /   0.0 /  17.2 ) 
-                CPU# 3    : 81.3   (  72.1 /   9.3 /   0.0 /  18.7 ) 
-                CPU# 4    : 81.6   (  72.3 /   9.4 /   0.0 /  18.3 ) 
-                CPU# 5    : 81.5   (  72.1 /   9.3 /   0.0 /  18.5 ) 
-                CPU# 6    : 81.5   (  71.9 /   9.6 /   0.0 /  18.6 ) 
-                CPU# 7    : 82.0   (  71.9 /  10.1 /   0.0 /  18.0 ) 
-                CPU# 8    : 82.0   (  72.8 /   9.2 /   0.0 /  18.0 ) 
+spartan-bm026 : 
+                CPU# 1    : 23.8   (  14.1 /   9.7 /   0.0 /  76.2 ) 
+                CPU# 2    : 24.0   (  14.2 /   9.8 /   0.0 /  76.0 ) 
+                CPU# 3    : 23.2   (  14.2 /   9.0 /   0.0 /  76.8 ) 
+                CPU# 4    : 23.0   (  14.3 /   8.7 /   0.0 /  77.0 ) 
+                CPU# 5    : 23.5   (  14.0 /   9.5 /   0.0 /  76.5 ) 
+                CPU# 6    : 24.0   (  14.2 /   9.8 /   0.0 /  76.0 ) 
+                CPU# 7    : 23.6   (  14.1 /   9.5 /   0.0 /  76.4 ) 
+                CPU# 8    : 24.2   (  14.1 /  10.1 /   0.0 /  75.8 ) 
 
 
 Allocated CPUs            : 8    
-  CPUs with usage <25%    : 0    
+  CPUs with usage <25%    : 8    
   CPUs with usage <50%    : 0    
-  CPUs with usage >50%    : 8    
+  CPUs with usage >50%    : 0    
 
 Memory used (RAM)         : 0.0%  [4MB of 32000MB]
 
