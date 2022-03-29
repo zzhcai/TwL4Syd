@@ -18,7 +18,7 @@ LANG_ATR = {
     'he': 'Hebrew',
     'hi': 'Hindi',
     'hu': 'Hungarian',
-    'in': 'Indonesian',
+    'id': 'Indonesian',
     'it': 'Italian',
     'ja': 'Japanese',
     'ko': 'Korean',
@@ -91,29 +91,25 @@ class ConciseTweet:
         return None
 
 
-def count(grids, batch, cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt):
+def count(grids, batch, cell_stats):
     """
     Accumulators fold by new batch of tweets
 
     :param grids: coordinates of grid cells
-    :param batch: a list of byte-format tweets
-    :param cell_lang_dict: {cell: {lang} }
-    :param cell_tweet_cnt: {cell: #tweets}
-    :param lang_tweet_cnt: {lang: #tweets}
-    :return: 1 updated dict, 2 updated counters in tuple
+    :param batch: a list of byte-format tweet strings
+    :param cell_stats: { cell: {lang: #tweets} }
+    :type  cell_stats: defaultdict(Counter)
+    :return: updated stats
 
     """
     for line in batch:
         c_tweet = ConciseTweet(line.decode('utf-8'))
         if c_tweet.coord and c_tweet.lang:
             cell = locate(c_tweet.coord, grids)
-            # inside
-            if cell != None:
-                cell_tweet_cnt[cell] += 1
-                lang_tweet_cnt[c_tweet.lang] += 1
-                cell_lang_dict[cell].add(c_tweet.lang)
+            if cell != None:   # inside mesh
+                cell_stats[cell][c_tweet.lang] += 1
 
-    return cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt
+    return cell_stats
 
 
 def locate(coord, grids):
@@ -139,10 +135,9 @@ def locate(coord, grids):
     return None
 
 
-def addDictset(d1, d2, datatype):
+def addDictCounter(d1, d2, datatype):
     """
-    :type d1, d2: defaultdict(set)
-    :return: merged new object
+    :type d1, d2: defaultdict(Counter)
 
     """
     for k, v in d2.items():
@@ -150,31 +145,30 @@ def addDictset(d1, d2, datatype):
     return d1
 
 
-def output(cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt):
+def output(cell_stats):
 
     print('''
 ===================================================
 ''')
-    print('Cell\t#Total Tweets\t#Number of Languages Used\n')
+
+    print('Cell\t#Total Tweets\t#Number of Languages Used\t#Top 10 Languages & #Tweets\n')
     for cell in ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4',
                  'C1', 'C2', 'C3', 'C4', 'D1', 'D2', 'D3', 'D4']:
+
+        del cell_stats[cell]['und']
+        cell_stats[cell]['zh-cn'] += cell_stats[cell]['zh-tw']
+        del cell_stats[cell]['zh-tw']
+        cell_stats[cell]['id'] += cell_stats[cell]['in']
+        del cell_stats[cell]['in']
+        cell_stats[cell] = Counter({l: c for l, c in cell_stats[cell].items() if c > 0})
+
         print(cell, '\t', end='')
-        print(cell_tweet_cnt[cell], '\t\t', end='')
-        print(len(cell_lang_dict[cell]))
-    print('''
-===================================================
-''')
-    print('#Top 10 Languages & #Tweets\n')
-    # merge chinese
-    lang_tweet_cnt['zh-cn'] += lang_tweet_cnt['zh-tw']
-    del lang_tweet_cnt['zh-tw']
-    top = Counter({
-        LANG_ATR[l]: c
-        for l, c in lang_tweet_cnt.items() if c > 0 and l in LANG_ATR
-    }).most_common(10)
-    for l, c in top:
-        print(l, '\t', c)
+        print(sum(cell_stats[cell].values()), '\t\t', end='')
+        print(len(cell_stats[cell]), '\t\t\t\t', end='')
+        print(tuple(['{0}-{1}'.format((LANG_ATR[l] if l in LANG_ATR else l), c)
+            for l, c in cell_stats[cell].most_common(10)]))
 
     print('''
 ===================================================''')
     return
+

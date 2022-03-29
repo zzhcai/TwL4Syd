@@ -4,7 +4,7 @@ import json
 from mpi4py import MPI
 from collections import Counter, defaultdict
 
-from utils import addDictset, count, output   # utils.py
+from utils import addDictCounter, count, output
 
 # Command-line arguments
 
@@ -29,8 +29,7 @@ def main():
     rank = comm.Get_rank()
     size = comm.Get_size()
 
-    cell_lang_dict = defaultdict(set)
-    cell_tweet_cnt, lang_tweet_cnt = Counter(), Counter()
+    cell_stats = defaultdict(Counter)
     
     with open(args.grid_path, 'r') as fg:
         grids = [(f['geometry']['coordinates'][0])[:4] for f in
@@ -40,14 +39,7 @@ def main():
 
     if size == 1:
         with open(args.twitter_path, 'rb') as ft:
-            (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
-                count(
-                    grids,
-                    ft,
-                    cell_lang_dict,
-                    cell_tweet_cnt,
-                    lang_tweet_cnt,
-                    )
+            cell_stats = count(grids, ft, cell_stats)
 
     # share the work
 
@@ -73,28 +65,17 @@ def main():
                 read_start += len(line)
                 batch.append(line)
                 if len(batch) >= args.batch_size or read_start > read_end:
-                    (cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt) = \
-                        count(
-                            grids,
-                            batch,
-                            cell_lang_dict,
-                            cell_tweet_cnt,
-                            lang_tweet_cnt,
-                            )
+                    cell_stats = count(grids, batch, cell_stats)
                     batch.clear()
 
-        # gathering
-
-        dictsetSumOp = MPI.Op.Create(addDictset, commute=True)
-        counterSumOp = MPI.Op.Create(lambda c1, c2, datatype: c1 + c2,
-                                     commute=True)
-        cell_lang_dict = comm.reduce(cell_lang_dict, op=dictsetSumOp, root=0)
-        cell_tweet_cnt = comm.reduce(cell_tweet_cnt, op=counterSumOp, root=0)
-        lang_tweet_cnt = comm.reduce(lang_tweet_cnt, op=counterSumOp, root=0)
+        # reducing
+        cell_stats = comm.reduce(
+            cell_stats, op=MPI.Op.Create(addDictCounter, commute=True), root=0
+        )
 
 
     if rank == 0:
-        output(cell_lang_dict, cell_tweet_cnt, lang_tweet_cnt)
+        output(cell_stats)
 
 
 if __name__ == '__main__':
