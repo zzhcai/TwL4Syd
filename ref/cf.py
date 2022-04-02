@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 
 x = ['1-node 1-core', '1-node 8-core', '2-node 8-core']
 y = [238, 35, 34]
-time_seq = round(34.5 - (250 - 34.5) / 7)
+avg = (y[1] + y[2]) / 2
+time_seq = round(avg - (y[0] - avg) / 7)
 y_seq = [time_seq] * 3
 
 plt.tight_layout()
@@ -15,6 +16,5 @@ for a, b in enumerate(y_seq):
 
 plt.xlabel("Resources")
 plt.ylabel("Time used (second)")
-plt.title("Performance comparison")
 plt.legend()
 plt.savefig('cf.png')
