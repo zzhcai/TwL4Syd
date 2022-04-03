@@ -4,19 +4,19 @@ echo ''
 echo '=== Linking files ================================='
 if [ ! -f "sydGrid.json" ]
 then
-    ln -s ${DATA_PATH}/sydGrid.json
+    ln -s $1/sydGrid.json
 fi
 if [ ! -f "bigTwitter.json" ]
 then
-    ln -s ${DATA_PATH}/bigTwitter.json
+    ln -s $1/bigTwitter.json
 fi
 #if [ ! -f "smallTwitter.json" ]
 #then
-#    ln -s ${DATA_PATH}/smallTwitter.json
+#    ln -s $1/smallTwitter.json
 #fi
 #if [ ! -f "tinyTwitter.json" ]
 #then
-#    ln -s ${DATA_PATH}/tinyTwitter.json
+#    ln -s $1/tinyTwitter.json
 #fi
 echo 'Done.'
 echo ''
