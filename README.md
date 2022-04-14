@@ -17,8 +17,8 @@ Return the final results and the time to run the job itself.
 ```
 ├── deprecated/                     # non-ideal approaches
 |   ├──── intercomm/                # spawn dynamic inter-commuincator
-|   |   ├────── count.py
-|   |   └────── pergridcount.py
+|   |     ├──── count.py
+|   |     └──── pergridcount.py
 |   ├──── openr/1n1c-nonbytes.out   # 1n1c results for 'r'
 |   ├──── setup/setup.sh            # setup as a root user
 |   └──── sendrecv/count.py         # by-master task allocation
