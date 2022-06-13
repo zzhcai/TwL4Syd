@@ -78,4 +78,5 @@ scancel <job_id>
 # Marks
 
 - 10/10 (100%)
+
 - It was an excellent attempt!! Your code was clean, neat, and easy to follow. Your report and the README file were very well rewritten and presented! It was great to see you passed the resource files as command line arguments. Only a few minor issues to point out as for your future reference. The submission was a little bit messy, there were a lot of files and directories in the submission which to me were not necessary. More languages could have been included and you could have put the language code into a separate file and feed it to your application. Some of your code was very well documented (i.e. utils.py) while the other (i.e. count.py) lacked detailed document, you may want to improve that in the future. - Alwyn Pan, Apr 18 at 22:34
